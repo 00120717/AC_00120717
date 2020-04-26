@@ -1,10 +1,9 @@
-org 100h
-
 ; EJERCICIO 1
 
 ; 00120717 -> digitos a utilizar 1,2,7,1,7
 ; (1+2+7+1+7)/5 = 3.6  
 
+org 100h
 section .calc    
     
     mov ax, 1d
@@ -44,21 +43,32 @@ len equ $-msg
 
 org 100h
 
-section .calc
+mov ax, 2d
+mov dl, 2d
+mov bx, 0000h
+mul dl
+mov bx, ax
+mov [di+210h], bx
+mov ax, 2d
 
-    mov ax, 4d
-    mov [210h],ax
-section .dia
-    
-    mov di, 0d
-    mov cx, 2d
+calc:   mul bx
+        mov bx, ax
+        inc di
+        mov [di+210h], bx
+        mov ax, 2d
 
-bucle:mul cx
-    mov [di+211h],ax
-    inc di
+        cmp di, 5d
+        je fin
+        loop calc
+        
+fin:    mul bx
+        mov bx, ax
+        inc di
+        mov [di+210h], bx
+        inc di
+        mov ax, 2d
 
-    cmp di, 11
-    jb bucle
+        loop fin
 
 int 20h
 
@@ -83,9 +93,15 @@ fibo:   mov cx, ax
         mov ax, bx
         mov bx, cx
     
+        cmp di, 11
+        je  fin
         inc di
-        
 
         cmp di, 16
         jb fibo
+
+fin:    inc di
+        mov cx, ax
+        add cx, bx
+        mov [222h + di], cx
 int 20h
