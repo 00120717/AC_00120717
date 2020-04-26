@@ -40,7 +40,27 @@ len equ $-msg
 
 
 ;EJERCICIO 2
+;Bayib Nukele
 
+org 100h
+
+section .calc
+
+    mov ax, 4d
+    mov [210h],ax
+section .dia
+    
+    mov di, 0d
+    mov cx, 2d
+
+bucle:mul cx
+    mov [di+211h],ax
+    inc di
+
+    cmp di, 11
+    jb bucle
+
+int 20h
 
 
 ; EJERCICIO 3
