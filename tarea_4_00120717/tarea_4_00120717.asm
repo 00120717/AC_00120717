@@ -2,36 +2,44 @@
 ; (1+2+7+1+7)/5 = 3.6  
 	org 	100h
 section .text
-
+	
 	call 	texto	
-	xor		bx,	bx
+	mov		bx,0d
+	mov		bl,0d
+
+
 	call 	cursor
 	call 	phrase
 
 	call	kb
-	add		al,	bl
-	mov		bl,	al
+	sub 	al,30h
+	add 	al,bl
+	mov		bl,al
 	
 	call 	kb
-	add		al, bl
-	mov		bl,	al
+	sub 	al,30h
+	add 	al,bl
+	mov		bl,al
 	
 	call 	kb
-	add		al, bl
-	mov		bl,	al
+	sub 	al,30h
+	add 	al,bl
+	mov		bl,al
 	
 	call 	kb
-	add		al, bl
-	mov		bl,	al
+	sub 	al,30h
+	add 	al,bl
+	mov		bl,al
 
 	call 	kb
-	add		al, bl
-	mov		bl,	al
-	mov		bx, ax
-	mov 	bl, 5d
-	div 	bl
-	mov		[300h],al
+	sub 	al,30h
+	add 	al,bl
+	mov		bl,al
 
+	mov		ax,bx
+	mov		bl,5d
+	div		bl
+	
 mostrar:call 	w_strng
         call 	kb
         int 	20h
@@ -98,5 +106,5 @@ lupi:	mov 	cl, [msg+di-1d]
 section .data
 msg	db 	"Ingrese notas: "
 len 	equ	$-msg+1d
-msg1	db 	"En el segundo "
+msg1	db 	"Hay salud "
 len1 	equ	$-msg1+1d
